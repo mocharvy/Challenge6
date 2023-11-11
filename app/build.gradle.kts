@@ -9,12 +9,12 @@ plugins {
 
 android {
     namespace = "com.programmer.challenge6_ma"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.programmer.challenge6_ma"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -74,4 +74,10 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
+    implementation("io.insert-koin:koin-core:3.5.0")
+    implementation("io.insert-koin:koin-android:3.5.0")
+    implementation("io.insert-koin:koin-android-compat:3.5.0")
+    implementation("io.insert-koin:koin-androidx-workmanager:3.5.0")
+    implementation("io.insert-koin:koin-androidx-navigation:3.5.0")
 }

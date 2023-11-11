@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "simple_chart_table")
-data class gitCartItemEntity(
+data class CartItemEntity(
     @PrimaryKey(autoGenerate = true)
     var itemId: Long? = null,
 

@@ -12,6 +12,7 @@
     <ImageView
         android:id="@+id/imgFood"
         android:layout_width="wrap_content"
+        android:contentDescription="@null"
         android:layout_height="280dp"
         android:scaleType="fitXY"
         android:src="@drawable/dimsum"
@@ -47,6 +48,7 @@
     <ImageView
         android:id="@+id/btkembali"
         android:layout_width="60dp"
+        android:contentDescription="@null"
         android:layout_height="70dp"
         android:paddingTop="16dp"
         android:paddingStart="16dp"
@@ -110,6 +112,7 @@
     <ImageView
         android:id="@+id/imgLocation"
         android:layout_width="48dp"
+        android:contentDescription="@null"
         android:layout_height="48dp"
         android:paddingTop="10dp"
         android:paddingStart="16dp"
@@ -181,11 +184,13 @@
             android:textSize="24sp"
             android:textStyle="bold"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"/>
+            android:layout_marginEnd="16dp"
+            android:contentDescription="@null"/>
 
         <ImageView
             android:id="@+id/btnPlus"
             android:layout_width="20dp"
+            android:contentDescription="@null"
             android:layout_height="20dp"
             android:src="@drawable/add"/>
     </LinearLayout>

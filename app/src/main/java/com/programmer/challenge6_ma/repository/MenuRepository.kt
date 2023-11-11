@@ -7,7 +7,7 @@ import com.programmer.challenge6_ma.api.ApiClient
 import com.programmer.challenge6_ma.menu.CategoryDataItem
 import com.programmer.challenge6_ma.menu.MenuListData
 
-private val Any.data: List<MenuListData>
+private val data: List<MenuListData>
     get() {
         TODO("Not yet implemented")
     }
@@ -19,7 +19,7 @@ class MenuRepository(private val apiService: ApiClient) {
         emit(Resource.Loading())
         try {
             val response = apiService.getMenuItems()
-            emit(Resource.Success(response.data))
+            emit(Resource.Success(data))
         } catch (e: Exception) {
             emit(Resource.Error(e.message ?: "An error occurred"))
         }
@@ -29,8 +29,8 @@ class MenuRepository(private val apiService: ApiClient) {
             = liveData {
         emit(Resource.Loading())
         try {
-            val response = apiService.getCategoryMenu()
-            emit(Resource.Success(response.data))
+            val response = getCategoryMenu()
+            emit(Resource.Success(data))
         } catch (e: Exception) {
             emit(Resource.Error(e.message ?: "An error occurred"))
         }
@@ -41,7 +41,7 @@ class MenuRepository(private val apiService: ApiClient) {
     }
 }
 
-private fun ApiClient.getCategoryMenu(): Any = Unit
+private fun getCategoryMenu(): Any = Unit
 
 private fun ApiClient.getMenuItems(): Any {
     TODO("Not yet implemented")

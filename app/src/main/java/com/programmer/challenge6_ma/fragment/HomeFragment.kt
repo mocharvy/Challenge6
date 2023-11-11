@@ -20,7 +20,7 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var adapter: MenuAdapter
     private lateinit var sharedPrefs: SharedPreferences
-    private val PREF_NAME = "MyPrefs"
+    private val PREFNAME = "MyPrefs"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,7 +29,7 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         setupMenu()
 
-        sharedPrefs = requireActivity().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+        sharedPrefs = requireActivity().getSharedPreferences(PREFNAME, Context.MODE_PRIVATE)
 
         val layoutManagerGrid = GridLayoutManager(requireContext(), 2)
         val layoutManagerLinear = LinearLayoutManager(requireContext())

@@ -34,7 +34,7 @@ class ConfirmOrderAdapter :
     }
 
     fun calculateTotalPrice(): Int {
-        return currentList.sumBy { it.totalPrice }
+        return currentList.sumOf { it.totalPrice }
     }
 
     private class CartItemDiffCallback : DiffUtil.ItemCallback<CartItem>() {

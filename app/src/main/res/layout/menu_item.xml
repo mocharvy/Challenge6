@@ -12,14 +12,15 @@
         android:layout_width="wrap_content"
         android:layout_height="150dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/dimsum" />
+        android:src="@drawable/dimsum"
+        android:contentDescription="@null"/>
 
     <!-- Nama makanan -->
     <TextView
         android:id="@+id/txtNamaMakanan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Dimsum "
+        android:text="@string/dimsum2"
         android:textSize="16sp"
         android:textStyle="bold"
         android:layout_marginTop="8dp"/>
@@ -29,7 +30,7 @@
         android:id="@+id/txtTotalMakanan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Rp 20.000"
+        android:text="@string/rp__20_000"
         android:textSize="14sp"
         android:layout_marginTop="4dp"/>
 
