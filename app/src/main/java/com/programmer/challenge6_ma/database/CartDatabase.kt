@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.programmer.challenge6_ma.item.CartItem
 
 
-@Database(entities = [CartItem::class], version = 1, exportSchema = false)
+@Database(entities = [CartItem::class], version = 2, exportSchema = false)
 abstract class CartDatabase : RoomDatabase() {
     abstract fun cartItemDao(): CartItemDao
 

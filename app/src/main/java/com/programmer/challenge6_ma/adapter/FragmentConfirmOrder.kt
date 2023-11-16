@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.programmer.challenge6_ma.databinding.FragmentOrderBinding
 import com.programmer.challenge6_ma.item.CartItem
 
@@ -15,11 +16,23 @@ class ConfirmOrderAdapter :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(cartItem: CartItem) {
-            binding.imgKeranjangItem.setImageResource(cartItem.imageResourceId)
+            Glide.with(itemView.context)
+                .load(cartItem.imageResourceId)
+                .into(binding.imgKeranjangItem)
             binding.txtCartItemNama.text = cartItem.foodName
             binding.txtCartItemHarga.text = "Rp. ${cartItem.totalPrice}"
             binding.txtItemQuantity.text = cartItem.quantity.toString()
+            binding.txtCartNote.text = "Catatan: ${cartItem.note}"
         }
+    }
+
+    fun calculateTotalPrice(): Int {
+        var totalPrice = 0
+        currentList.forEach { cartItem ->
+            totalPrice += cartItem.totalPrice
+        }
+
+        return totalPrice
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -31,10 +44,6 @@ class ConfirmOrderAdapter :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val cartItem = getItem(position)
         holder.bind(cartItem)
-    }
-
-    fun calculateTotalPrice(): Int {
-        return currentList.sumOf { it.totalPrice }
     }
 
     private class CartItemDiffCallback : DiffUtil.ItemCallback<CartItem>() {

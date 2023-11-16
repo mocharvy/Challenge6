@@ -58,12 +58,12 @@ class ConfirmOrderActivity : AppCompatActivity() {
                     "Metode Pembayaran: $paymentMethod"
 
             if (deliveryMethod.isEmpty() || paymentMethod.isEmpty()){
-                Toast.makeText(this@ConfirmOrderActivity, "Mohon untuk diisi metode yang kosong!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@ConfirmOrderActivity, "Mohon di isi metode yang kosong!", Toast.LENGTH_SHORT).show()
             }else{
                 val alertDialog = AlertDialog.Builder(this)
-                    .setTitle("Order Summary")
+                    .setTitle("Ringkasan Pesanan Anda")
                     .setMessage(orderSummary)
-                    .setPositiveButton("Berhasil") { _, _ ->
+                    .setPositiveButton("Sipp, Mantap!!") { _, _ ->
                         // Delete all items from the database
                         viewModel.deleteAllCartItems()
                         // Navigate back to the home page

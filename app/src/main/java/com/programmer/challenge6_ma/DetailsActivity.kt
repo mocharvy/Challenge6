@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.programmer.challenge6_ma.databinding.ActivityDetailsBinding
 import com.programmer.challenge6_ma.item.CartItem
 import com.programmer.challenge6_ma.viewmodel.CartViewModel
@@ -36,7 +37,7 @@ class DetailsActivity : AppCompatActivity() {
         val name = bundle?.getString("name")
         val price = bundle?.getInt("price")
         val description = bundle?.getString("description")
-        val imageRes = bundle?.getInt("imageRes")
+        val imageRes = bundle?.getString("imageRes")
         val restaurantAddress = bundle?.getString("restaurantAddress")
         googleMapsUrl = bundle!!.getString("googleMapsUrl", "")
 
@@ -110,9 +111,11 @@ class DetailsActivity : AppCompatActivity() {
     }
 
 
-    private fun updateUI(name: String?, price: String?, description: String?, imageRes: Int, restaurantAddress: String?) {
+    private fun updateUI(name: String?, price: String?, description: String?, imageRes: String, restaurantAddress: String?) {
         binding.apply {
-            imgFood.setImageResource(imageRes)
+            Glide.with(this@DetailsActivity)
+                .load(imageRes)
+                .into(imgFood)
             txtFoodName.text = name
             txtFoodPrice.text = "Rp. $price"
             txtFoodDescription.text = description

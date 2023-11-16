@@ -1,7 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="EntryPointsManager">
-    <list size="12">
-      <item index="0" class="java.lang.String" itemvalue="retrofit2.http.GET" />
+    <list size="13">
+      <item index="0" class="java.lang.String" itemvalue="com.google.gson.annotations.SerializedName" />
       <item index="1" class="java.lang.String" itemvalue="retrofit2.http.GET" />
       <item index="2" class="java.lang.String" itemvalue="retrofit2.http.GET" />
       <item index="3" class="java.lang.String" itemvalue="retrofit2.http.GET" />
@@ -9,10 +10,11 @@
       <item index="5" class="java.lang.String" itemvalue="retrofit2.http.GET" />
       <item index="6" class="java.lang.String" itemvalue="retrofit2.http.GET" />
       <item index="7" class="java.lang.String" itemvalue="retrofit2.http.GET" />
-      <item index="8" class="java.lang.String" itemvalue="retrofit2.http.POST" />
+      <item index="8" class="java.lang.String" itemvalue="retrofit2.http.GET" />
       <item index="9" class="java.lang.String" itemvalue="retrofit2.http.POST" />
       <item index="10" class="java.lang.String" itemvalue="retrofit2.http.POST" />
       <item index="11" class="java.lang.String" itemvalue="retrofit2.http.POST" />
+      <item index="12" class="java.lang.String" itemvalue="retrofit2.http.POST" />
     </list>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />

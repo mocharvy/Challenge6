@@ -15,6 +15,9 @@ interface CartItemDao {
     @Query("SELECT * FROM cart_item")
     fun getAllCartItems(): LiveData<List<CartItem>>
 
+    @Query("SELECT * FROM cart_item WHERE foodName = :foodName LIMIT 1")
+    fun getCartItemByFoodName(foodName: String): CartItem?
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertCartItem(cartItem: CartItem)
 

@@ -3,27 +3,40 @@ package com.programmer.challenge6_ma.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.programmer.challenge6_ma.databinding.MenuItemBinding
-import com.programmer.challenge6_ma.item.MenuItem
+import com.programmer.challenge6_ma.menu.MenuListData
 
 class MenuAdapter(
-    private val menuItems: List<MenuItem>,
-    private val onItemClick: (MenuItem) -> Unit
+    private val onItemClick: (MenuListData) -> Unit // Menambahkan parameter onClick
 ) : RecyclerView.Adapter<MenuAdapter.ViewHolder>() {
+    private val menuItems: ArrayList<MenuListData> = arrayListOf()
+
+    fun setMenuItems(menuItems: List<MenuListData>){
+        this.menuItems.clear()
+        this.menuItems.addAll(menuItems)
+        notifyDataSetChanged()
+    }
 
     inner class ViewHolder(private val binding: MenuItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(menuItem: MenuItem) {
-            binding.imgMakanan.setImageResource(menuItem.imageRes)
-            binding.txtNamaMakanan.text = menuItem.name
-            binding.txtTotalMakanan.text = "Rp. ${menuItem.price}"
+        fun bind(menuItem: MenuListData) {
+            // Isi komponen-komponen tampilan dengan data dari objek MenuItem
 
-            // Menggunakan onClickListener untuk item dengan menggunakan lambda onItemClick
+            Glide.with(itemView.context)
+                .load(menuItem.imageUrl)
+                .into(binding.imgMakanan)
+
+            binding.txtNamaMakanan.text = menuItem.nama
+            binding.txtTotalMakanan.text = menuItem.hargaFormat
+
+            // Menambahkan onClickListener untuk item
             itemView.setOnClickListener {
                 onItemClick(menuItem)
             }
         }
     }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = MenuItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)

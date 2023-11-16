@@ -23,4 +23,8 @@ class CartRepository(private val cartDao: CartItemDao) {
     fun deleteAllCartItems() {
         cartDao.deleteAllCartItems()
     }
+
+    fun getCartByFoodName(foodName:String):CartItem?{
+        return cartDao.getCartItemByFoodName(foodName)
+    }
 }

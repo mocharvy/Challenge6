@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/profile"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,13 +20,13 @@
         android:layout_marginBottom="17dp" />
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/editProfileButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/baseline_edit_24"
+        android:id="@+id/logoutButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/logout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="17dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="20dp"
         android:clickable="true"
         android:focusable="true"
@@ -57,116 +57,92 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/username2"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ivProfile"
         android:layout_marginStart="20dp"
         android:layout_marginTop="60dp"/>
 
-    <EditText
+    <TextView
         android:id="@+id/etUsernameValue"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/username3"
-        android:layout_marginTop="7dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:background="@color/cardview_shadow_start_color"
+        android:text="@string/username"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvUsername"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:background="#F1F1F1"
-        android:textSize="14sp"
-        android:padding="10dp"
-        android:textAlignment="center"
-        android:inputType="text" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvUsername" />
 
     <TextView
         android:id="@+id/tvPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/password2"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/etUsernameValue"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="18dp"
         android:layout_marginStart="20dp" />
 
-    <EditText
-        android:id="@+id/etPasswordValue"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/password3"
-        android:layout_marginTop="7dp"
-        app:layout_constraintStart_toStartOf="parent"
+    <TextView
+        android:id="@+id/tvPasswordValue"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:background="@color/cardview_shadow_start_color"
+        android:text="********"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvPassword"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:background="#F1F1F1"
-        android:textSize="14sp"
-        android:padding="10dp"
-        android:textAlignment="center"
-        android:inputType="textPassword" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvPassword" />
 
     <TextView
         android:id="@+id/tvEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/email2"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/etPasswordValue"
+        app:layout_constraintTop_toBottomOf="@id/tvPasswordValue"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="18dp"
         android:layout_marginStart="20dp" />
 
-    <EditText
-        android:id="@+id/etEmailValue"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/email3"
-        android:layout_marginTop="7dp"
-        app:layout_constraintStart_toStartOf="parent"
+    <TextView
+        android:id="@+id/tvEmailValue"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:background="@color/cardview_shadow_start_color"
+        android:text="Username"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvEmail"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:background="#F1F1F1"
-        android:textSize="14sp"
-        android:padding="10dp"
-        android:textAlignment="center"
-        android:inputType="textEmailAddress" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvEmail" />
 
     <TextView
         android:id="@+id/tvMobile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/no_telp2"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/etEmailValue"
+        app:layout_constraintTop_toBottomOf="@id/tvEmailValue"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="18dp"
         android:layout_marginStart="20dp" />
 
-    <EditText
-        android:id="@+id/etMobileValue"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/no_telp3"
-        android:layout_marginTop="7dp"
-        app:layout_constraintStart_toStartOf="parent"
+    <TextView
+        android:id="@+id/tvMobileValue"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:background="@color/cardview_shadow_start_color"
+        android:text="Username"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvMobile"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:background="#F1F1F1"
-        android:textSize="14sp"
-        android:padding="10dp"
-        android:textAlignment="center"
-        android:inputType="phone" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvMobile" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

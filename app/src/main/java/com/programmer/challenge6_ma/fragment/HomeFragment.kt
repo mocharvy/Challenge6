@@ -6,171 +6,128 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.programmer.challenge6_ma.R
+import com.programmer.challenge6_ma.adapter.CategoryAdapter
 import com.programmer.challenge6_ma.adapter.MenuAdapter
 import com.programmer.challenge6_ma.databinding.FragmentHomeBinding
-import com.programmer.challenge6_ma.item.MenuItem
-
+import com.programmer.challenge6_ma.viewmodel.MenuViewModel
+import com.programmer.challenge6_ma.viewmodel.MenuViewModelFactory
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var adapter: MenuAdapter
+    private lateinit var menuAdapter: MenuAdapter
+    private lateinit var categoryAdapter: CategoryAdapter
     private lateinit var sharedPrefs: SharedPreferences
-    private val PREFNAME = "MyPrefs"
+    private val PREF_NAME = "MyPrefs"
+    private val IS_GRID_LAYOUT_KEY = "isGridLayout"
+    private lateinit var layoutManagerGrid: GridLayoutManager
+    private lateinit var layoutManagerLinear: LinearLayoutManager
+    private lateinit var currentLayoutManager: RecyclerView.LayoutManager
+    private lateinit var viewModel: MenuViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-        setupMenu()
+        sharedPrefs = requireActivity().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
 
-        sharedPrefs = requireActivity().getSharedPreferences(PREFNAME, Context.MODE_PRIVATE)
+        // Inisialisasi LayoutManager untuk Grid dan Linear
+        layoutManagerGrid = GridLayoutManager(requireContext(), 2)
+        layoutManagerLinear = LinearLayoutManager(requireContext())
 
-        val layoutManagerGrid = GridLayoutManager(requireContext(), 2)
-        val layoutManagerLinear = LinearLayoutManager(requireContext())
+        // Inisialisasi LayoutManager saat aplikasi pertama kali dibuka
+        val savedLayout = sharedPrefs.getString("layout", "grid") // "grid" adalah nilai default jika tidak ada yang tersimpan
 
-        //Inisialisasi layout manager saat membuka aplikasi
-        val savedLayout = sharedPrefs.getString("layout", "grid") ?: "grid"
-
-        var currentLayoutManager = if (savedLayout == "grid") {
-            binding.btnList.setImageResource(R.drawable.baseline_grid_view_24)
-            layoutManagerGrid
+        if (savedLayout == "grid") {
+            currentLayoutManager = layoutManagerGrid
+            binding.btnList.setImageResource(R.drawable.grid)
         } else {
+            currentLayoutManager = layoutManagerLinear
             binding.btnList.setImageResource(R.drawable.list)
-            layoutManagerLinear
         }
 
         binding.rvMenuMakanan.layoutManager = currentLayoutManager
 
+
         binding.btnList.setOnClickListener {
-            currentLayoutManager = if (currentLayoutManager == layoutManagerGrid) {
-                binding.btnList.setImageResource(R.drawable.list)
+            // Mengubah tata letak saat tombol diklik
+
+            if (currentLayoutManager == layoutManagerGrid) {
+                currentLayoutManager = layoutManagerLinear
+                binding.btnList.setImageResource(
+                    R.drawable.list
+                )
                 sharedPrefs.edit().putString("layout", "linear").apply()
-                layoutManagerLinear
+
             } else {
-                binding.btnList.setImageResource(R.drawable.baseline_grid_view_24)
+                currentLayoutManager = layoutManagerGrid
+                binding.btnList.setImageResource(
+                    R.drawable.grid
+                )
                 sharedPrefs.edit().putString("layout", "grid").apply()
-                layoutManagerGrid
             }
             binding.rvMenuMakanan.layoutManager = currentLayoutManager
+
         }
 
+        binding.rvCategories.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL, false)
+
+        setupMenu()
+        setupViewModel()
         return binding.root
     }
 
-    private fun setupMenu() {
-        val menuItems = getMenuItems()
-        adapter = MenuAdapter(menuItems) { selectedItem ->
-            val bundle = Bundle().apply {
-                putString("name", selectedItem.name)
-                putInt("price", selectedItem.price)
-                putString("description", selectedItem.description)
-                putInt("imageRes", selectedItem.imageRes)
-                putString("restaurantAddress", selectedItem.restaurantAddress)
-                putString("googleMapsUrl", selectedItem.googleMapsUrl)
+    private fun setupViewModel() {
+        viewModel = ViewModelProvider(this, MenuViewModelFactory()).get(MenuViewModel::class.java)
+        viewModel.getListMenu().observe(viewLifecycleOwner){
+            if (it != null) {
+                menuAdapter.setMenuItems(it)
             }
+        }
+        viewModel.getCategories().observe(viewLifecycleOwner){
+            if(it != null){
+                categoryAdapter.setCategoryItems(it)
+            }
+        }
+        viewModel.setListMenu()
+        viewModel.setCategories()
+    }
+
+    private fun setupMenu() {
+        menuAdapter = MenuAdapter{ selectedItem ->
+            val bundle = Bundle()
+            bundle.putString("name", selectedItem.nama)
+            bundle.putInt("price", selectedItem.harga!!)
+            bundle.putString("description", selectedItem.detail)
+            bundle.putString("imageRes", selectedItem.imageUrl)
+            bundle.putString("restaurantAddress", "Alamat Restaurant")
+            bundle.putString("googleMapsUrl", selectedItem.alamatResto)
+
             val navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
             navController.navigate(R.id.detailActivity, bundle)
         }
-        binding.rvMenuMakanan.adapter = adapter
+
+        binding.rvMenuMakanan.adapter = menuAdapter
+
+        categoryAdapter = CategoryAdapter {
+            Toast.makeText(requireContext(),it.nama,Toast.LENGTH_SHORT).show()
+        }
+
+        binding.rvCategories.adapter = categoryAdapter
     }
 
-    private fun getMenuItems(): List<MenuItem> {
-        val menuItems = mutableListOf<MenuItem>()
-        menuItems.add(MenuItem(
-            "Dimsum",
-            20000,
-            "Dimsum makanan paling dicari semua orang mau anak-anak, remaja, hingga dewasa!",
-            R.drawable.dimsum,
-            "Bandung",
-            "https://maps.app.goo.gl/Kd1hbopN2DhnY4DQ9"
-        ))
-
-        menuItems.add(MenuItem(
-            "Kentang",
-            20000,
-            "Kentang Goreng pakai saus tomat",
-            R.drawable.kentang,
-            "Jakarta",
-            "https://maps.app.goo.gl/2yxKvmefahrrB9u19"
-        ))
-
-        menuItems.add(MenuItem(
-            "Burger",
-            15000,
-            "Burger big dengan varian baru dibalut saus keju",
-            R.drawable.burger,
-            "Depok",
-            "https://maps.app.goo.gl/eQdfDWJbbu2GFCMm9"
-        ))
-
-        menuItems.add(MenuItem(
-            "Sushi",
-            35000,
-            "Sushi makanan favorit anak jaman now",
-            R.drawable.sushi,
-            "Surabaya",
-            "https://maps.app.goo.gl/5pN2U8kR9y3QDjBE6"
-        ))
-
-        menuItems.add(MenuItem(
-            "Strawberry Milk",
-            10000,
-            "Minuman segar dikolaborasi dengan susu sapi australia",
-            R.drawable.strawberry_milk,
-            "Bogor",
-            "https://maps.app.goo.gl/vNGTFJRV1FFeVko1A"
-        ))
-
-        menuItems.add(MenuItem(
-            "Chicken",
-            25000,
-            "Chicken dengan sambal ijo",
-            R.drawable.chicken,
-            "Garut",
-            "https://maps.app.goo.gl/cMSAqxLjtVUTNP2Z9"
-        ))
-        menuItems.add(MenuItem(
-            "Dimsum",
-            25000,
-            "Dimsum makanan paling dicari semua orang mau anak-anak, remaja, hingga dewasa!",
-            R.drawable.dimsum,
-            "Bandung",
-            "https://maps.app.goo.gl/Kd1hbopN2DhnY4DQ9"
-        ))
-
-        menuItems.add(MenuItem(
-            "Kentang",
-            20000,
-            "Kentang Goreng pakai saus tomat",
-            R.drawable.kentang,
-            "Jakarta",
-            "https://maps.app.goo.gl/2yxKvmefahrrB9u19"
-        ))
-
-        menuItems.add(MenuItem(
-            "Burger",
-            15000,
-            "Burger big dengan varian baru dibalut saus keju",
-            R.drawable.burger,
-            "Depok",
-            "https://maps.app.goo.gl/eQdfDWJbbu2GFCMm9"
-        ))
-
-        menuItems.add(MenuItem(
-            "Sushi",
-            35000,
-            "Sushi makanan favorit anak jaman now",
-            R.drawable.sushi,
-            "Surabaya",
-            "https://maps.app.goo.gl/5pN2U8kR9y3QDjBE6"
-        ))
-
-        return menuItems
+    private fun saveLayoutPreference(isGrid: Boolean) {
+        val editor = sharedPrefs.edit()
+        editor.putBoolean(IS_GRID_LAYOUT_KEY, isGrid)
+        editor.apply()
     }
 }

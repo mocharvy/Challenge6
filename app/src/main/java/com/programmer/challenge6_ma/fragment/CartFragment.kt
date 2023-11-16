@@ -5,28 +5,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.programmer.challenge6_ma.adapter.CartAdapter
 import com.programmer.challenge6_ma.databinding.FragmentCartBinding
 import com.programmer.challenge6_ma.viewmodel.CartViewModel
-import com.programmer.challenge6_ma.viewmodel.ViewModelFactory
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CartFragment : Fragment() {
 
     private lateinit var binding: FragmentCartBinding
-    private lateinit var viewModel: CartViewModel
+    private val viewModel: CartViewModel by viewModel()
     private lateinit var cartAdapter: CartAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         binding = FragmentCartBinding.inflate(inflater, container, false)
-
-        viewModel = ViewModelProvider(this, ViewModelFactory(requireActivity().application))
-            .get(CartViewModel::class.java)
 
         setupRecyclerView()
         observeCartItems()
@@ -45,17 +43,17 @@ class CartFragment : Fragment() {
             viewModel.deleteCartItem(cartItem)
         }
 
-        binding.rvMenuMakanan.apply {
+        binding.rvMenuMakanan1.apply {
             adapter = cartAdapter
             layoutManager = LinearLayoutManager(context)
         }
     }
 
     private fun observeCartItems() {
-        viewModel.allCartItems.observe(viewLifecycleOwner) { cartItems ->
+        viewModel.allCartItems.observe(viewLifecycleOwner, Observer { cartItems ->
             cartAdapter.submitList(cartItems)
             val totalPrice = cartAdapter.calculateTotalPrice()
             binding.txtTotalPrice.text = "Total Price: Rp. $totalPrice"
-        }
+        })
     }
 }

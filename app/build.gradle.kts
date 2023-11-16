@@ -34,6 +34,17 @@ android {
         viewBinding = true
     }
 
+    //    lint{
+////        disable 'TypographyFractions', 'TypographyQuotes'
+////        enable 'RtlHardcoded', 'RtlCompat', 'RtlEnabled'
+////        checkOnly  'NewApi', 'InlinedApi'
+//        quiet = true
+//        abortOnError = false
+//        ignoreWarnings = true
+//        checkDependencies = true
+//    }
+
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8

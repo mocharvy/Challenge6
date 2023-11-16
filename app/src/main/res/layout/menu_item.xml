@@ -9,18 +9,16 @@
     <!-- Gambar makanan -->
     <ImageView
         android:id="@+id/imgMakanan"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/dimsum"
-        android:contentDescription="@null"/>
+        android:scaleType="centerCrop" />
 
     <!-- Nama makanan -->
     <TextView
         android:id="@+id/txtNamaMakanan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/dimsum2"
+        android:text="Nama Makanan"
         android:textSize="16sp"
         android:textStyle="bold"
         android:layout_marginTop="8dp"/>

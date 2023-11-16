@@ -47,7 +47,7 @@
     <!-- Tombol kembali di pojok kiri atas -->
     <ImageView
         android:id="@+id/btkembali"
-        android:layout_width="60dp"
+        android:layout_width="58dp"
         android:contentDescription="@null"
         android:layout_height="70dp"
         android:paddingTop="16dp"
@@ -64,7 +64,7 @@
         android:layout_height="wrap_content"
         android:paddingStart="16dp"
         android:paddingTop="20dp"
-        android:text="DIMSUM"
+        android:text="dimsum"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -76,7 +76,7 @@
         android:layout_height="wrap_content"
         android:paddingStart="16dp"
         android:paddingBottom="16dp"
-        android:text="Rp 20.000"
+        android:text="Rp.20.000"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -89,7 +89,7 @@
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:paddingBottom="20dp"
-        android:text="Dimsum adalah makanan yang sangat dicari oleh banyak orang, tak hanya itu dimsum disajikan dengan saus tomat, sehingga menjadi makanan favorit anak remaja."
+        android:text="dimsum_adalah_makanan_yang_sangat_dicari_oleh_banyak_orang_tak_hanya_itu_dimsum_disajikan_dengan_saus_tomat_sehingga_menjadi_makanan_favorit_anak_remaja"
         android:textSize="16sp"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
@@ -127,7 +127,7 @@
         android:paddingTop="16dp"
         android:paddingStart="6dp"
         android:textSize="20sp"
-        android:text="Lokasi Restaurant"
+        android:text="lokasi_restaurant"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/imgLocation"
         app:layout_constraintTop_toBottomOf="@+id/line1" />
@@ -142,7 +142,7 @@
         android:background="?android:attr/selectableItemBackground"
         android:clickable="true"
         android:gravity="center"
-        android:text="Jl.Raya Cibaduyut No.49,Kota Bandung, JawaBarat"
+        android:text="jl_raya_cibaduyut_no_49_kota_bandung_jawabarat"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -159,7 +159,7 @@
 
     <!-- Tombol tambah/minus -->
     <LinearLayout
-        android:id="@+id/containerQuan"
+        android:id="@+id/containerQuantity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="16dp"
@@ -173,7 +173,8 @@
             android:id="@+id/btnMinus"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:src="@drawable/minus"/>
+            android:src="@drawable/minus"
+            android:contentDescription="TODO" />
 
         <!-- Jumlah pesanan -->
         <TextView
@@ -209,6 +210,6 @@
         android:layout_marginEnd="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/containerQuan"/>
+        app:layout_constraintTop_toBottomOf="@+id/containerQuantity"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

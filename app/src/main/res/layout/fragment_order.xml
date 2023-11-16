@@ -10,12 +10,11 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginEnd="16dp"
-        android:contentDescription="@null"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:src="@drawable/dimsum"
         android:scaleType="centerCrop"
-        />
+        android:contentDescription="TODO" />
 
     <TextView
         android:id="@+id/txtCartItemNama"
@@ -25,7 +24,7 @@
         android:layout_marginStart="16dp"
         app:layout_constraintStart_toEndOf="@+id/imgKeranjangItem"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/dimsum1"
+        android:text="Nama Item Makanan"
         android:textSize="16sp"
         android:textStyle="bold"
         />

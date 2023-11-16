@@ -1,12 +1,14 @@
 package com.programmer.challenge6_ma.adapter
 
-import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.programmer.challenge6_ma.databinding.CartItemBinding
 import com.programmer.challenge6_ma.item.CartItem
 import com.programmer.challenge6_ma.viewmodel.CartViewModel
@@ -25,7 +27,6 @@ class CartAdapter(private val viewModel: CartViewModel, private val onItemClick:
         holder.bind(currentItem)
 
         holder.binding.btnPlus.setOnClickListener {
-            // Menambah jumlah item
             currentItem.quantity++
             updateCartItem(currentItem)
             currentItem.totalPrice = currentItem.calculateTotalPrice()
@@ -33,11 +34,10 @@ class CartAdapter(private val viewModel: CartViewModel, private val onItemClick:
         }
 
         holder.binding.btnMinus.setOnClickListener {
-            // Mengurangi jumlah item
             currentItem.quantity--
             currentItem.totalPrice = currentItem.calculateTotalPrice()
             if (currentItem.quantity < 1) {
-                showDeleteConfirmationDialog(holder, currentItem)
+                showDeleteConfirmationDialog(holder)
             } else {
                 updateCartItem(currentItem)
                 notifyItemChanged(holder.bindingAdapterPosition)
@@ -45,7 +45,18 @@ class CartAdapter(private val viewModel: CartViewModel, private val onItemClick:
         }
 
         holder.binding.ivDelete.setOnClickListener {
-            showDeleteConfirmationDialog(holder, currentItem)
+            showDeleteConfirmationDialog(holder)
+        }
+
+        holder.binding.tvNote.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                holder.binding.tvNote.clearFocus()
+                currentItem.note = holder.binding.tvNote.text.toString().trim()
+                updateCartItem(currentItem)
+                Log.d("TAG", "XXXXXXXXXXXXX")
+                true
+            }
+            false
         }
     }
 
@@ -54,32 +65,41 @@ class CartAdapter(private val viewModel: CartViewModel, private val onItemClick:
         currentList.forEach { cartItem ->
             totalPrice += cartItem.totalPrice
         }
+
         return totalPrice
     }
-
     private fun updateCartItem(cartItem: CartItem) {
         viewModel.updateCartItem(cartItem)
     }
 
-    inner class CartViewHolder(val binding: CartItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        @SuppressLint("SetTextI18n")
+    inner class CartViewHolder(val binding: CartItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
         fun bind(cartItem: CartItem) {
-            binding.ivFood.setImageResource(cartItem.imageResourceId)
+            Glide.with(itemView.context)
+                .load(cartItem.imageResourceId)
+                .into(binding.ivFood)
             binding.tvDesc.text = cartItem.foodName
             binding.tvPrice.text = "Rp. ${cartItem.totalPrice}"
             binding.tvNumber.text = cartItem.quantity.toString()
+            binding.tvNote.setText(cartItem.note)
         }
     }
 
-    private fun showDeleteConfirmationDialog(holder: CartViewHolder, cartItem: CartItem) {
-        AlertDialog.Builder(holder.itemView.context)
-            .setTitle("Delete Item")
-            .setMessage("Apakah yakin akan menghapus Item ini?")
-            .setPositiveButton("Delete") { _, _ ->
-                onItemClick(cartItem)
-            }
-            .setNegativeButton("Cancel", null)
-            .show()
+    private fun showDeleteConfirmationDialog(holder: CartViewHolder) {
+        val position = holder.bindingAdapterPosition
+        if (position != RecyclerView.NO_POSITION) {
+            val cartItem = getItem(position)
+
+            AlertDialog.Builder(holder.itemView.context)
+                .setTitle("Delete Item")
+                .setMessage("Apakah yakin akan menghapus Item ini?")
+                .setPositiveButton("Delete") { _, _ ->
+                    onItemClick(cartItem)
+                }
+                .setNegativeButton("Cancel", null)
+                .show()
+        }
     }
 
     companion object {
